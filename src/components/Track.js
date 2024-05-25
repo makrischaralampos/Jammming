@@ -1,7 +1,15 @@
 import React from "react";
 import styles from "./Track.module.css";
 
-function Track({ track }) {
+function Track({ track, onAdd, onRemove, isRemoval }) {
+  const addTrack = () => {
+    onAdd(track);
+  };
+
+  const removeTrack = () => {
+    onRemove(track);
+  };
+
   return (
     <div className={styles.track}>
       <div className={styles.trackInformation}>
@@ -10,7 +18,15 @@ function Track({ track }) {
           {track.artist} | {track.album}
         </p>
       </div>
-      <button className={styles.trackAction}>+</button>
+      {isRemoval ? (
+        <button className={styles.trackAction} onClick={removeTrack}>
+          -
+        </button>
+      ) : (
+        <button className={styles.trackAction} onClick={addTrack}>
+          +
+        </button>
+      )}
     </div>
   );
 }

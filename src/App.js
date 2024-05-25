@@ -11,13 +11,38 @@ function App() {
     { id: 3, name: "Song 3", artist: "Artist 3", album: "Album 3" },
   ]);
 
+  const [playlistName, setPlaylistName] = useState("New Playlist");
+  const [playlistTracks, setPlaylistTracks] = useState([]);
+
+  const addTrack = (track) => {
+    if (playlistTracks.find((savedTrack) => savedTrack.id === track.id)) {
+      return;
+    }
+    setPlaylistTracks([...playlistTracks, track]);
+  };
+
+  const removeTrack = (track) => {
+    setPlaylistTracks(
+      playlistTracks.filter((savedTrack) => savedTrack.id !== track.id)
+    );
+  };
+
+  const updatePlaylistName = (name) => {
+    setPlaylistName(name);
+  };
+
   return (
     <div className={styles.app}>
       <h1>Jammming</h1>
       <SearchBar />
       <div className={styles.appPlaylist}>
-        <SearchResults searchResults={searchResults} />
-        <Playlist />
+        <SearchResults searchResults={searchResults} onAdd={addTrack} />
+        <Playlist
+          playlistName={playlistName}
+          playlistTracks={playlistTracks}
+          onRemove={removeTrack}
+          onNameChange={updatePlaylistName}
+        />
       </div>
     </div>
   );
