@@ -6,36 +6,19 @@ import Playlist from "./components/Playlist";
 import Spotify from "./Spotify";
 
 function App() {
-  const [searchResults, setSearchResults] = useState([
-    {
-      id: 1,
-      name: "Song 1",
-      artist: "Artist 1",
-      album: "Album 1",
-      uri: "spotify:track:1",
-    },
-    {
-      id: 2,
-      name: "Song 2",
-      artist: "Artist 2",
-      album: "Album 2",
-      uri: "spotify:track:2",
-    },
-    {
-      id: 3,
-      name: "Song 3",
-      artist: "Artist 3",
-      album: "Album 3",
-      uri: "spotify:track:3",
-    },
-  ]);
-
+  const [searchResults, setSearchResults] = useState([]);
   const [playlistName, setPlaylistName] = useState("New Playlist");
   const [playlistTracks, setPlaylistTracks] = useState([]);
 
   useEffect(() => {
     Spotify.getAccessToken();
   }, []);
+
+  const search = (term) => {
+    Spotify.search(term).then((tracks) => {
+      setSearchResults(tracks);
+    });
+  };
 
   const addTrack = (track) => {
     if (playlistTracks.find((savedTrack) => savedTrack.id === track.id)) {
@@ -67,7 +50,7 @@ function App() {
   return (
     <div className={styles.app}>
       <h1>Jammming</h1>
-      <SearchBar />
+      <SearchBar onSearch={search} />
       <div className={styles.appPlaylist}>
         <SearchResults searchResults={searchResults} onAdd={addTrack} />
         <Playlist
