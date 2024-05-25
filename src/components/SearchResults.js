@@ -2,11 +2,11 @@ import React from "react";
 import styles from "./SearchResults.module.css";
 import Tracklist from "./Tracklist";
 
-function SearchResults() {
+function SearchResults({ searchResults }) {
   return (
     <div className={styles.searchResults}>
       <h2>Results</h2>
-      <Tracklist />
+      <Tracklist tracks={searchResults} />
     </div>
   );
 }
