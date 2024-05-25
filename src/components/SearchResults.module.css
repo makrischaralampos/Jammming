@@ -1,0 +1,8 @@
+.searchResults {
+  width: 45%;
+}
+
+.searchResults h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
