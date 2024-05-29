@@ -15,6 +15,7 @@
 .trackInformation {
   display: flex;
   flex-direction: column;
+  text-align: left;
 }
 
 .trackInformation h3 {
